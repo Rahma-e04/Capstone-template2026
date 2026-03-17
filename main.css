@@ -2,10 +2,12 @@
    CSS Variables
    ========================================================================== */
 :root {
-  --main-bg-color: white;
-  --secondary-bg-color: #cbcbcb;
-  --accent-color: #000000;
-  --main-text-color: #222;
+  --main-bg-color: rgb(0, 0, 0);
+  --secondary-bg-color: #000000;
+  --accent-color: #f6eded;
+  --main-text-color: #24D56D;
+  --rain-rgb: 36, 213, 109;
+  --rain-color: rgb(var(--rain-rgb));
   --secondary-text-color: #353535;
   --main-font: "Epilogue", sans-serif;
   --secondary-font: sans-serif;
@@ -116,6 +118,71 @@ p {
   line-height: 1.6;
 }
 
+/* Main page content background and text color for high contrast */
+.main-container {
+  background-color: #000000; /* black background for main page content */
+  color: #ffffff; /* white text for readability */
+  min-height: 100vh; /* ensure it covers the viewport */
+  position: relative; /* create stacking context for the canvas */
+  overflow: hidden; /* prevent scrollbars from the canvas */
+}
+
+/* Scope digital rain to the hero area */
+.key-image-hero {
+  position: relative; /* stacking context for the canvas */
+  overflow: visible; /* allow fixed hero-word to sit over the page */
+  min-height: 100vh; /* keep hero at least full viewport height */
+}
+
+/* Make the rain canvas cover the entire viewport so a fixed-position word can be centered */
+#digital-rain {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none; /* non-interactive */
+  z-index: 0;
+  display: block;
+  opacity: 0.6; /* tune visibility so content remains readable */
+}
+
+/* Ensure hero content stacks above the canvas without changing layout */
+.key-image-hero > *:not(#digital-rain) {
+  position: relative;
+  z-index: 1;
+}
+
+/* Hero centered word that the rain will fill */
+.hero-word {
+  position: fixed; /* place the word centered in the viewport */
+  font-family: 'Gridlite PE Variable', 'GridlitePEVF', monospace;
+  /* Make the word much larger and responsive while keeping a minimum of 96px */
+  font-size: clamp(96px, 18vw, 420px);
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: transparent; /* render text via rain — keep base text transparent */
+  /* stroke and glow to match rain color */
+  -webkit-text-stroke: 2px var(--rain-color);
+  -moz-text-stroke: 2px var(--rain-color);
+  text-shadow: 0 0 28px rgba(var(--rain-rgb), 0.65), 0 0 6px rgba(var(--rain-rgb), 0.35);
+  text-align: center;
+  pointer-events: none;
+  z-index: 2; /* sit above the canvas */
+}
+
+/* If the font isn't loaded yet, scale down for narrow screens */
+@media (max-width: 600px) {
+  .hero-word {
+    font-size: clamp(48px, 28vw, 120px);
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+/* Reminder: include your Adobe Fonts embed script in the <head> of index.html to load Gridlite PE Variable. */
+
 /* Skip to main content link */
 .skip-to-main-content-link {
   position: absolute;
@@ -123,7 +190,7 @@ p {
   z-index: 999;
   padding: 1em;
   background-color: black;
-  color: white;
+  color: rgb(0, 0, 0);
   opacity: 0;
   transition: none;
 }
@@ -251,11 +318,11 @@ nav {
   width: 100vw;
   height: clamp(8rem, calc(100vh - 5.75em), 1000px);
   background-image: linear-gradient(to top,
-      #9e9e9e 0%,
-      #9e9e9e 1%,
-      #b7b7b7 31%,
-      #efeeec 75%,
-      #e9e9e7 100%);
+      #000000 0%,
+      #000000 1%,
+      #000000 31%,
+      #000000 75%,
+      #000000 100%);
   border-bottom: solid 1px var(--main-text-color);
   display: flex;
   flex-direction: column;

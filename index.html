@@ -8,6 +8,27 @@
   <title>Title Here</title>
   <link rel="stylesheet" href="main.css" />
 
+  <!-- IMPORTANT: To use 'Gridlite PE Variable' include your Adobe Fonts embed kit here.
+    Sign in to Adobe Fonts, add Gridlite PE Variable to a web project and paste the
+    provided <script> embed code here. Without that the variable font won't load and
+    the page will fall back to the monospace font. -->
+  <!--
+    Quick local @font-face fallback: drop the variable font file(s) into ./fonts/
+    with the exact file name GridlitePEVF.woff2 (or update the paths below).
+    The CSS below will try to load the local files if present. If you have an
+    Adobe Fonts embed script, prefer that instead (paste it above this comment).
+  -->
+  <style>
+    @font-face {
+      font-family: 'Gridlite PE Variable';
+      src: url('fonts/GridlitePEVF.woff2') format('woff2');
+      /* If you have other formats, add them here as fallbacks */
+      font-weight: 100 900; /* variable font weight range */
+      font-style: normal;
+      font-display: swap;
+    }
+  </style>
+
   <!-- Remember to include your fonts here! Noto Sans from Google Fonts included as an example. Replace this entire snippet with your own from Google Fonts. -->
   <!-- Alternatively, remove this snippet and include your fonts as font-faces in CSS: https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@font-face 
      Make sure you include the font files and reference them properly. -->
@@ -50,6 +71,8 @@
     <!-- You can either put your exhibition key image in the background of .curatorial-left in main.css and delete the .key-image-hero div,
         or remove the background-image on .curatorial-left and place the key image in the hero. -->
     <div class="key-image-hero">
+      <!-- Add the hero word; the font should be provided by your Adobe Fonts kit for Gridlite PE Variable -->
+      <div class="hero-word">OURCHIVES</div>
       <a href="#curatorial-statement">View exhibition<br />&darr;</a>
     </div>
     <div class="column-text" id="curatorial-statement">
